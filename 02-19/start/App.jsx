@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 
-const App = () => {
+export const App = () => {
     const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('nph-todos')) ?? [])
     const [inputValue, setInputValue] = useState('')
 
@@ -19,12 +19,14 @@ const App = () => {
         <main>
             <h1>Nashville Programming Hour</h1>
             <ul>
-                {todos.map(todo => <li>{todo}</li>)}
+                {todos.map(todo => <li key={todo}>{todo}</li>)}
             </ul>
-            <input type="text" value={inputValue} onChange={event => setInputValue(event.target.value)} />
+            <input placeholder="Enter Todo" type="text" value={inputValue} onChange={event => setInputValue(event.target.value)} />
             <button onClick={handleAddTodo}>Add Todo</button>
         </main>
     );
 }
 
-render(<App />, document.getElementById('root'));
+if (document.getElementById('root')) {
+    render(<App />, document.getElementById('root'));
+}
